@@ -56,4 +56,10 @@ return [
         'home'  => env('AUTH0_ROUTE_HOME', '/'),
         'login' => env('AUTH0_ROUTE_LOGIN', 'login'),
     ],
+
+    // Used to customize Auth0 configuration of your Laravel application.
+    'auth' => [
+        'guard' => env('AUTH0_LARAVEL_AUTH_GUARD', 'auth0'),
+        'provider' => env('AUTH0_LARAVEL_AUTH_USER_PROVIDER', 'auth0'),
+    ],
 ];

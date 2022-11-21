@@ -23,7 +23,7 @@ final class AuthenticateOptional implements \Auth0\Laravel\Contract\Http\Middlew
         /**
          * @var \Illuminate\Contracts\Auth\Factory $auth
          */
-        $guard = $auth->guard('auth0');
+        $guard = $auth->guard(config('auth0.auth.guard', 'auth0'));
 
         /**
          * @var Guard $guard

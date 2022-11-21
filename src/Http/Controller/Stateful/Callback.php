@@ -21,7 +21,7 @@ final class Callback implements \Auth0\Laravel\Contract\Http\Controller\Stateful
         /**
          * @var Guard $guard
          */
-        $guard = $auth->guard('auth0');
+        $guard = $auth->guard(config('auth0.auth.guard', 'auth0'));
 
         // Check if the user already has a session:
         if ($guard->check()) {
