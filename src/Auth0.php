@@ -60,7 +60,8 @@ final class Auth0 implements \Auth0\Laravel\Contract\Auth0
     public function getConfiguration(): Configuration
     {
         if (null === self::$configuration) {
-            $config = config('auth0');
+            $configName = config('services.auth0.config', 'auth0');
+            $config = config($configName);
 
             /**
              * @var array<mixed> $config
