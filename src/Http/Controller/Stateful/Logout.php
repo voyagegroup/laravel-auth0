@@ -15,10 +15,12 @@ final class Logout implements \Auth0\Laravel\Contract\Http\Controller\Stateful\L
     {
         $auth = auth();
 
+        $configName = \Auth0\Laravel\Auth0::getConfigName();
+
         /**
          * @var \Illuminate\Contracts\Auth\Factory $auth
          */
-        $guard = $auth->guard(config('auth0.auth.guard', 'auth0'));
+        $guard = $auth->guard(config("$configName.auth.guard", 'auth0'));
 
         /**
          * @var Guard $guard
@@ -29,10 +31,10 @@ final class Logout implements \Auth0\Laravel\Contract\Http\Controller\Stateful\L
             $guard->logout();
 
             return redirect()->away(
-                app(\Auth0\Laravel\Auth0::class)->getSdk()->authentication()->getLogoutLink(url(config('auth0.routes.home', '/'))), // @phpstan-ignore-line
+                app(\Auth0\Laravel\Auth0::class)->getSdk()->authentication()->getLogoutLink(url(config("$configName.routes.home", '/'))), // @phpstan-ignore-line
             );
         }
 
-        return redirect()->intended(config('auth0.routes.home', '/')); // @phpstan-ignore-line
+        return redirect()->intended(config("$configName.routes.home", '/')); // @phpstan-ignore-line
     }
 }

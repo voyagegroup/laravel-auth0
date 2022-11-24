@@ -20,10 +20,12 @@ final class Authenticate implements \Auth0\Laravel\Contract\Http\Middleware\Stat
     {
         $auth = auth();
 
+        $configName = \Auth0\Laravel\Auth0::getConfigName();
+
         /**
          * @var \Illuminate\Contracts\Auth\Factory $auth
          */
-        $guard = $auth->guard(config('auth0.auth.guard', 'auth0'));
+        $guard = $auth->guard(config("$configName.auth.guard", 'auth0'));
 
         /**
          * @var Guard $guard
@@ -36,6 +38,6 @@ final class Authenticate implements \Auth0\Laravel\Contract\Http\Middleware\Stat
             return $next($request);
         }
 
-        return redirect(config('auth0.routes.login', 'login')); // @phpstan-ignore-line
+        return redirect(config("$configName.routes.login", 'login')); // @phpstan-ignore-line
     }
 }

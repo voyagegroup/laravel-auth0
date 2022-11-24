@@ -18,15 +18,17 @@ final class Callback implements \Auth0\Laravel\Contract\Http\Controller\Stateful
          */
         $auth = auth();
 
+        $configName = \Auth0\Laravel\Auth0::getConfigName();
+
         /**
          * @var Guard $guard
          */
-        $guard = $auth->guard(config('auth0.auth.guard', 'auth0'));
+        $guard = $auth->guard(config("$configName.auth.guard", 'auth0'));
 
         // Check if the user already has a session:
         if ($guard->check()) {
             // They do; redirect to homepage.
-            return redirect()->intended(config('auth0.routes.home', '/')); // @phpstan-ignore-line
+            return redirect()->intended(config("$configName.routes.home", '/')); // @phpstan-ignore-line
         }
 
         $code = $request->query('code');
@@ -125,6 +127,6 @@ final class Callback implements \Auth0\Laravel\Contract\Http\Controller\Stateful
             event(new \Illuminate\Auth\Events\Authenticated($guard::class, $user));
         }
 
-        return redirect()->intended(config('auth0.routes.home', '/')); // @phpstan-ignore-line
+        return redirect()->intended(config("$configName.routes.home", '/')); // @phpstan-ignore-line
     }
 }

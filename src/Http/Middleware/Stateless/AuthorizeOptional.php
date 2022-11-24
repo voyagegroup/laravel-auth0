@@ -18,10 +18,12 @@ final class AuthorizeOptional implements \Auth0\Laravel\Contract\Http\Middleware
     {
         $auth = auth();
 
+        $configName = \Auth0\Laravel\Auth0::getConfigName();
+
         /**
          * @var \Illuminate\Contracts\Auth\Factory $auth
          */
-        $guard = $auth->guard(config('auth0.auth.guard', 'auth0'));
+        $guard = $auth->guard(config("$configName.auth.guard", 'auth0'));
 
         /**
          * @var Guard $guard
