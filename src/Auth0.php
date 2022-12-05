@@ -60,7 +60,7 @@ final class Auth0 implements \Auth0\Laravel\Contract\Auth0
     public function getConfiguration(): Configuration
     {
         if (null === self::$configuration) {
-            $configName = self::getConfigName();
+            $configName = config('services.auth0.config', 'auth0');
             $config = config($configName);
 
             /**
@@ -137,13 +137,5 @@ final class Auth0 implements \Auth0\Laravel\Contract\Auth0
         \Auth0\SDK\Utility\HttpTelemetry::setPackage('laravel-auth0', self::VERSION);
 
         return $this;
-    }
-
-    /**
-     * Returns the file name of the Auth0 configuration.
-     */
-    public static function getConfigName(): string
-    {
-        return config('services.auth0.config', 'auth0');
     }
 }

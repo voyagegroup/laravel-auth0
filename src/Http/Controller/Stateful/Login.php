@@ -17,18 +17,16 @@ final class Login implements \Auth0\Laravel\Contract\Http\Controller\Stateful\Lo
     {
         $auth = auth();
 
-        $configName = \Auth0\Laravel\Auth0::getConfigName();
-
         /**
          * @var \Illuminate\Contracts\Auth\Factory $auth
          */
-        $guard = $auth->guard(config("configName.auth.guard", 'auth0'));
+        $guard = $auth->guard(config('auth0.auth.guard', 'auth0'));
 
         /**
          * @var Guard $guard
          */
         if ($guard->check()) {
-            return redirect()->intended(config("$configName.routes.home", '/')); // @phpstan-ignore-line
+            return redirect()->intended(config('auth0.routes.home', '/')); // @phpstan-ignore-line
         }
 
         return redirect()->away(app(\Auth0\Laravel\Auth0::class)->getSdk()->login());
